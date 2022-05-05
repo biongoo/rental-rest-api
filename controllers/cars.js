@@ -17,7 +17,7 @@ const cars = [
         pricePerDay: 800,
         url: 'https://img.chceauto.pl/volkswagen/golf/volkswagen-golf-hatchback-5-drzwiowy-4514-50024_head.webp',
     },
-  ]
+];
 
 exports.getCars = (req, res, next) => {
     res.status(200).json(cars);
