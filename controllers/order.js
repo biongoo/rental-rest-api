@@ -4,9 +4,12 @@ exports.postOrder = (req, res, next) => {
     // Create post in db
 
     res.status(201).json({
-        id: new Date().toISOString(),
-        name: name,
-        carId: carId,
-        days: days,
+        message: 'ok',
+        result: {
+            id: new Date().toISOString(),
+            name: name,
+            carId: carId,
+            days: days,
+        },
     });
 };
