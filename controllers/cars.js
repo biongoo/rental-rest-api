@@ -19,6 +19,6 @@ const cars = [
     },
 ];
 
-exports.getCars = (req, res, next) => {
+export const getCars = (req, res, next) => {
     res.status(200).json(cars);
 };

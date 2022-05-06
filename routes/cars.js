@@ -1,9 +1,6 @@
-const express = require('express');
+import express from 'express';
+import { getCars } from '../controllers/index.js';
 
-const router = express.Router();
+export const carsRoutes = express.Router();
 
-const carsController = require('../controllers/cars');
-
-router.get('', carsController.getCars);
-
-module.exports = router;
+carsRoutes.get('', getCars);

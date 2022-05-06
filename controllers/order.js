@@ -1,4 +1,4 @@
-exports.postOrder = (req, res, next) => {
+export const postOrder = (req, res, next) => {
     const { name, carId, days } = req.body;
 
     // Create post in db
