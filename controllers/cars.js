@@ -20,5 +20,5 @@ const cars = [
 ];
 
 export const getCars = (req, res, next) => {
-    res.status(200).json(cars);
+    res.status(201).json({ data: cars, error: '' });
 };

@@ -1,15 +1,12 @@
 export const postOrder = (req, res, next) => {
-    const { name, carId, days } = req.body;
+    const { carId, email, name, phone, startDate } = req.body;
 
-    // Create post in db
+    // Create order in db
 
     res.status(201).json({
-        message: 'ok',
-        result: {
+        error: 'daw',
+        data: {
             id: new Date().toISOString(),
-            name: name,
-            carId: carId,
-            days: days,
         },
     });
 };
