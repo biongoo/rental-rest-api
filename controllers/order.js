@@ -4,7 +4,7 @@ export const postOrder = (req, res, next) => {
     // Create order in db
 
     res.status(201).json({
-        error: 'daw',
+        error: { name: 'xd', message: 'XDD', inputName: 'phone' },
         data: {
             id: new Date().toISOString(),
         },
