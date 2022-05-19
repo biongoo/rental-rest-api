@@ -7,7 +7,7 @@ export const orderRoutes = express.Router();
 orderRoutes.post(
     '',
     [
-        body('carId').isNumeric(),
+        body('carId').trim().isString(),
         body('name').trim().isLength({ min: 1, max: 100 }),
         body('phone').trim().isNumeric().isLength({ min: 9, max: 9 }),
         body('email').trim().isEmail(),
