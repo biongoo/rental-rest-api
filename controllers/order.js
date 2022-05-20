@@ -53,7 +53,7 @@ export const postOrder = async (req, res, next) => {
         const paymentResult = await payment.save();
 
         res.status(201).json({
-            data: { ...orderResult, ...paymentResult },
+            data: { paymentId: paymentResult._doc._id },
         });
     } catch (err) {
         if (!err.statusCode) {
