@@ -41,7 +41,7 @@ export const postOrder = async (req, res, next) => {
             car: { carId },
         });
 
-        const orderResult = await order.save();
+        await order.save();
 
         const payment = new Payment({
             status: 'new',
