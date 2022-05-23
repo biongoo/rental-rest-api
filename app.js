@@ -3,7 +3,12 @@ import { fileURLToPath } from 'url';
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
-import { carsRoutes, orderRoutes, paymentRoutes } from './routes/index.js';
+import {
+    carsRoutes,
+    cardsRoutes,
+    orderRoutes,
+    paymentRoutes,
+} from './routes/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -27,6 +32,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/cars', carsRoutes);
+app.use('/cards', cardsRoutes);
 app.use('/order', orderRoutes);
 app.use('/payment', paymentRoutes);
 

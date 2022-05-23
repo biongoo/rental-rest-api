@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-const cartSchema = new Schema(
+const cardSchema = new Schema(
     {
         isBlocked: {
             type: Boolean,
@@ -32,4 +32,4 @@ const cartSchema = new Schema(
     { timestamps: true },
 );
 
-export const Cart =  mongoose.model('Cart', cartSchema);
+export const Card =  mongoose.model('Card', cardSchema);
