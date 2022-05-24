@@ -1,5 +1,5 @@
 import { validationResult } from 'express-validator';
-import { Order, Payment } from '../models/index.js';
+import { Order, Payment, Car } from '../models/index.js';
 import { createClearDate, getDiffDays } from '../utils/index.js';
 
 export const postOrder = async (req, res, next) => {
@@ -32,28 +32,37 @@ export const postOrder = async (req, res, next) => {
     }
 
     try {
+        const car = await Car.findById(carId);
+
+        if (!car) {
+            const error = new Error('There is no such car');
+            error.statusCode = 400;
+
+            throw error;
+        }
+
         const order = new Order({
             name,
             phone,
             email,
             startDate,
             endDate,
-            car: { carId },
+            car: car._id,
         });
 
         await order.save();
 
         const payment = new Payment({
             status: 'new',
-            value: 100,
+            value: car.pricePerDay * daysToRent,
             days: daysToRent,
-            order: { xd: 'order' },
+            order: order._id,
         });
 
         const paymentResult = await payment.save();
 
         res.status(201).json({
-            data: { paymentId: paymentResult._doc._id },
+            data: { paymentId: paymentResult._id },
         });
     } catch (err) {
         if (!err.statusCode) {

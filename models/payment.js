@@ -17,7 +17,8 @@ const paymentSchema = new Schema(
             required: true,
         },
         order: {
-            type: Object,
+            type: Schema.Types.ObjectId,
+            ref: 'Order',
             required: true,
         },
     },

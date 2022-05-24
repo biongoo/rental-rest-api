@@ -8,6 +8,10 @@ const cardSchema = new Schema(
             type: Boolean,
             required: true,
         },
+        errorCount: {
+            type: Number,
+            required: true,
+        },
         amount: {
             type: Number,
             required: true,

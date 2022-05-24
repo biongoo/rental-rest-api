@@ -25,7 +25,8 @@ const orderSchema = new Schema(
             required: true,
         },
         car: {
-            type: Object,
+            type: Schema.Types.ObjectId,
+            ref: 'Car',
             required: true,
         },
     },
