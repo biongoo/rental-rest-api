@@ -3,9 +3,10 @@ import { Payment, Card, Order, Car } from '../models/index.js';
 
 export const getPayment = async (req, res, next) => {
     try {
-        const payment = await Payment.findById(req.params.paymentId);
-        const order = await Order.findById(payment.order);
-        const car = await Car.findById(order.car);
+        const payment = await Payment.findById(req.params.paymentId).populate({
+            path: 'order',
+            populate: [{ path: 'car' }],
+        });
 
         res.status(200).json({
             data: {
@@ -13,7 +14,7 @@ export const getPayment = async (req, res, next) => {
                 status: payment.status,
                 value: payment.value,
                 days: payment.days,
-                carName: car.name,
+                carName: payment.order.car.name,
             },
         });
     } catch (err) {
