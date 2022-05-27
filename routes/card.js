@@ -1,6 +1,7 @@
 import express from 'express';
-import { postCards } from '../controllers/index.js';
+import { postCards, getCards } from '../controllers/index.js';
 
 export const cardsRoutes = express.Router();
 
+cardsRoutes.get('/', getCards);
 cardsRoutes.get('/add', postCards);

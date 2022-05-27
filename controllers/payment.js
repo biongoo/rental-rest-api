@@ -1,5 +1,5 @@
 import { validationResult } from 'express-validator';
-import { Payment, Card, Order, Car } from '../models/index.js';
+import { Payment, Card } from '../models/index.js';
 
 export const getPayment = async (req, res, next) => {
     try {

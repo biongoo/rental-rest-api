@@ -41,7 +41,7 @@ export const postCars = async (_req, res, next) => {
         await Car.insertMany([car1, car2, car3]);
 
         res.status(201).json({
-            data: 'Added',
+            data: 'Added cars',
         });
     } catch (err) {
         if (!err.statusCode) {

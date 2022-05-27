@@ -1,10 +1,10 @@
 import { expect } from 'chai';
 import mongoose from 'mongoose';
 
-import { Car } from '../models/index.js';
-import { getCars, postCars } from '../controllers/index.js';
+import { Card } from '../models/index.js';
+import { getCards, postCards } from '../controllers/index.js';
 
-describe('Car Controller', () => {
+describe('Card Controller', () => {
     before(done => {
         mongoose
             .connect(
@@ -16,15 +16,15 @@ describe('Car Controller', () => {
     });
 
     after(done => {
-        Car.deleteMany({})
+        Card.deleteMany({})
             .then(() => mongoose.disconnect())
             .then(() => {
                 done();
             });
     });
 
-    describe('postCars', () => {
-        it('Create mock cars', () => {
+    describe('postCards', () => {
+        it('Create mock cards', () => {
             const res = {
                 data: '',
                 status() {
@@ -35,14 +35,14 @@ describe('Car Controller', () => {
                 },
             };
 
-            postCars({}, res, () => {}).then(() => {
-                expect(res.data).to.be.equal('Added cars');
+            postCards({}, res, () => {}).then(() => {
+                expect(res.data).to.be.equal('Added cards');
             });
         });
     });
 
-    describe('getCars', () => {
-        it('Get cars from database', () => {
+    describe('getCards', () => {
+        it('Get cards from database', () => {
             const res = {
                 data: '',
                 status() {
@@ -53,7 +53,7 @@ describe('Car Controller', () => {
                 },
             };
 
-            getCars({}, res, () => {}).then(() => {
+            getCards({}, res, () => {}).then(() => {
                 expect(res.data).to.be.an('array');
             });
         });
