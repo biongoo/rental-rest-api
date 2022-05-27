@@ -18,7 +18,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use('/images', express.static(join(__dirname, 'images')));
 
-app.use((req, res, next) => {
+app.use((_req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader(
         'Access-Control-Allow-Methods',

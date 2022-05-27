@@ -10,4 +10,4 @@ export const createClearDate = date => {
 };
 
 export const getDiffDays = (dateFirst, dateSecond) =>
-    Math.ceil(Math.abs(dateSecond - dateFirst) / (1000 * 60 * 60 * 24));
+    Math.ceil(dateSecond - dateFirst) / (1000 * 60 * 60 * 24);
