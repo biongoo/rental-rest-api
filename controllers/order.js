@@ -1,6 +1,17 @@
 import { validationResult } from 'express-validator';
 import { Order, Payment, Car } from '../models/index.js';
 import { createClearDate, getDiffDays } from '../utils/index.js';
+import nodemailer from 'nodemailer';
+import sendgridTransport from 'nodemailer-sendgrid-transport';
+
+const transporter = nodemailer.createTransport(
+    sendgridTransport({
+        auth: {
+            api_key:
+                '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',
+        },
+    }),
+);
 
 export const postOrder = async (req, res, next) => {
     try {
@@ -47,7 +58,7 @@ export const postOrder = async (req, res, next) => {
 
             throw error;
         }
-    
+
         const car = await Car.findById(carId);
 
         if (!car) {
@@ -79,6 +90,13 @@ export const postOrder = async (req, res, next) => {
 
         res.status(201).json({
             data: { paymentId: paymentResult._id },
+        });
+
+        transporter.sendMail({
+            to: email,
+            from: 'sheresupp@gmail.com',
+            subject: 'Transaction started - Rental App',
+            html: `Visit <a href="http://localhost:3000/payment/${paymentResult._id}">this page</a> to continue your transaction.`,
         });
     } catch (err) {
         if (!err.statusCode) {

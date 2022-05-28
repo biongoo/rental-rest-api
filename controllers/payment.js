@@ -1,5 +1,16 @@
 import { validationResult } from 'express-validator';
 import { Payment, Card } from '../models/index.js';
+import nodemailer from 'nodemailer';
+import sendgridTransport from 'nodemailer-sendgrid-transport';
+
+const transporter = nodemailer.createTransport(
+    sendgridTransport({
+        auth: {
+            api_key:
+                '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',
+        },
+    }),
+);
 
 export const getPayment = async (req, res, next) => {
     try {
@@ -70,7 +81,9 @@ export const updatePayment = async (req, res, next) => {
             throw error;
         }
 
-        const payment = await Payment.findById(paymentId);
+        const payment = await Payment.findById(paymentId).populate({
+            path: 'order',
+        });
 
         if (!payment) {
             throw new Error();
@@ -145,6 +158,13 @@ export const updatePayment = async (req, res, next) => {
 
         await payment.updateOne({
             status: 'paid',
+        });
+
+        transporter.sendMail({
+            to: payment.order.email,
+            from: 'sheresupp@gmail.com',
+            subject: 'Transaction ended - Rental App',
+            html: `Visit <a href="http://localhost:3000/payment/${payment._id}">this page</a> to see payment status.`,
         });
 
         res.status(200).json({ data: { status: 'ok' } });
