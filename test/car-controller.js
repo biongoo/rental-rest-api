@@ -10,7 +10,7 @@ describe('Car Controller', () => {
             .connect(
                 'mongodb+srv://biongoo:VNSgZpPq4JVhm1Qe@cluster0.epcnv.mongodb.net/rental-app-test?retryWrites=true&w=majority',
             )
-            .then(result => {
+            .then(() => {
                 done();
             });
     });
@@ -24,7 +24,7 @@ describe('Car Controller', () => {
     });
 
     describe('postCars', () => {
-        it('Create mock cars', () => {
+        it('Create mock cars', done => {
             const res = {
                 data: '',
                 status() {
@@ -37,12 +37,13 @@ describe('Car Controller', () => {
 
             postCars({}, res, () => {}).then(() => {
                 expect(res.data).to.be.equal('Added cars');
+                done();
             });
         });
     });
 
     describe('getCars', () => {
-        it('Get cars from database', () => {
+        it('Get cars from database', done => {
             const res = {
                 data: '',
                 status() {
@@ -55,6 +56,7 @@ describe('Car Controller', () => {
 
             getCars({}, res, () => {}).then(() => {
                 expect(res.data).to.be.an('array');
+                done();
             });
         });
     });

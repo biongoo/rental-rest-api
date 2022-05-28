@@ -36,7 +36,7 @@ app.use('/cards', cardsRoutes);
 app.use('/order', orderRoutes);
 app.use('/payment', paymentRoutes);
 
-app.use((error, req, res, next) => {
+app.use((error, _req, res, _next) => {
     console.log(error);
 
     const status = error.statusCode ?? 500;

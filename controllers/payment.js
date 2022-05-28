@@ -3,10 +3,23 @@ import { Payment, Card } from '../models/index.js';
 
 export const getPayment = async (req, res, next) => {
     try {
-        const payment = await Payment.findById(req.params.paymentId).populate({
+        const paymentId = req?.params?.paymentId;
+
+        if (typeof paymentId !== 'string' || paymentId.length !== 24) {
+            const error = new Error('Invalid payment id');
+            error.statusCode = 400;
+
+            throw error;
+        }
+
+        const payment = await Payment.findById(paymentId).populate({
             path: 'order',
             populate: [{ path: 'car' }],
         });
+
+        if (!payment) {
+            throw new Error();
+        }
 
         res.status(200).json({
             data: {
@@ -24,6 +37,7 @@ export const getPayment = async (req, res, next) => {
         }
 
         next(err);
+        return err;
     }
 };
 
@@ -45,11 +59,22 @@ export const updatePayment = async (req, res, next) => {
             throw error;
         }
 
-        const { card, cvc, mm, yy } = req.body;
-
         const now = new Date();
+        const { card, cvc, mm, yy } = req.body;
+        const paymentId = req?.params?.paymentId;
 
-        const payment = await Payment.findById(req.params.paymentId);
+        if (typeof paymentId !== 'string' || paymentId.length !== 24) {
+            const error = new Error('Invalid payment id');
+            error.statusCode = 400;
+
+            throw error;
+        }
+
+        const payment = await Payment.findById(paymentId);
+
+        if (!payment) {
+            throw new Error();
+        }
 
         if (payment.status === 'paid') {
             const error = new Error('Your payment was paid!');
@@ -87,7 +112,6 @@ export const updatePayment = async (req, res, next) => {
         }
 
         if (
-            +card !== cardRecord.number ||
             +cvc !== cardRecord.cvc ||
             +mm !== cardRecord.expiresMonth ||
             +yy !== cardRecord.expiresYear
@@ -131,5 +155,6 @@ export const updatePayment = async (req, res, next) => {
         }
 
         next(err);
+        return err;
     }
 };

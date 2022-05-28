@@ -10,7 +10,7 @@ describe('Card Controller', () => {
             .connect(
                 'mongodb+srv://biongoo:VNSgZpPq4JVhm1Qe@cluster0.epcnv.mongodb.net/rental-app-test?retryWrites=true&w=majority',
             )
-            .then(result => {
+            .then(() => {
                 done();
             });
     });
@@ -24,7 +24,7 @@ describe('Card Controller', () => {
     });
 
     describe('postCards', () => {
-        it('Create mock cards', () => {
+        it('Create mock cards', done => {
             const res = {
                 data: '',
                 status() {
@@ -37,12 +37,13 @@ describe('Card Controller', () => {
 
             postCards({}, res, () => {}).then(() => {
                 expect(res.data).to.be.equal('Added cards');
+                done();
             });
         });
     });
 
     describe('getCards', () => {
-        it('Get cards from database', () => {
+        it('Get cards from database', done => {
             const res = {
                 data: '',
                 status() {
@@ -55,6 +56,7 @@ describe('Card Controller', () => {
 
             getCards({}, res, () => {}).then(() => {
                 expect(res.data).to.be.an('array');
+                done();
             });
         });
     });
