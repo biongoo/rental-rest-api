@@ -22,13 +22,13 @@ export const postCars = async (_req, res, next) => {
     try {
         const car1 = new Car({
             name: 'BMW M5 GTS',
-            pricePerDay: 2500,
+            pricePerDay: 1200,
             url: 'http://localhost:8080/images/BMW.webp',
         });
 
         const car2 = new Car({
             name: 'Ferrari 488 Pista',
-            pricePerDay: 1200,
+            pricePerDay: 2500,
             url: 'http://localhost:8080/images/FERRARI.jpg',
         });
 
